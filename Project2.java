@@ -32,6 +32,7 @@ public class Project2 {
 		for (int time = 0; time <= 1000; time++) {	
 			panel.sleep(50);
 			moveEnemyShipAndDraw(g);
+			handleKeys(panel, g);
 		//g.setColor(Color.WHITE); 
 		//g.fillOval(x, y, 30, 30);
 		//g.setColor(Color.RED); 
@@ -73,6 +74,33 @@ public class Project2 {
 
 
 	public static void handleKeys(DrawingPanel panel, Graphics g) {
-
-
+		int deltaX = 3;
+		if (panel.getKeyCode() == RIGHT_ARROW) {
+			g.setColor(Color.WHITE);
+			g.fillRect(patrolX, PATROL_Y, PATROL_SIZE, PATROL_SIZE);
+			patrolX = patrolX + deltaX;
+			g.setColor(Color.GREEN);
+			g.fillRect(patrolX, PATROL_Y, PATROL_SIZE, PATROL_SIZE);
+			if (patrolX >= 280) {
+				g.setColor(Color.WHITE);
+				g.fillRect(patrolX, PATROL_Y, PATROL_SIZE, PATROL_SIZE);
+				patrolX = 277;
+				g.setColor(Color.GREEN);
+				g.fillRect(patrolX, PATROL_Y, PATROL_SIZE, PATROL_SIZE);
+			}
+		} else if (panel.getKeyCode() == LEFT_ARROW) {
+			g.setColor(Color.WHITE);
+			g.fillRect(patrolX, PATROL_Y, PATROL_SIZE, PATROL_SIZE);
+			patrolX = patrolX - deltaX;
+			g.setColor(Color.GREEN);
+			g.fillRect(patrolX, PATROL_Y, PATROL_SIZE, PATROL_SIZE);
+			if (patrolX <= 0) {
+				g.setColor(Color.WHITE);
+				g.fillRect(patrolX, PATROL_Y, PATROL_SIZE, PATROL_SIZE);
+				patrolX = 3;
+				g.setColor(Color.GREEN);
+				g.fillRect(patrolX, PATROL_Y, PATROL_SIZE, PATROL_SIZE);
+			}
+		}
+	}
 }
