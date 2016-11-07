@@ -9,10 +9,13 @@ public class Project2 {
 	public static final int RIGHT_ARROW = 39;
 	public static final int LEFT_ARROW = 37;
 	public static final int UP_ARROW = 38;
+	public static final int PATROL_MISSILE_LENGTH = 10;
 
 	// non-Constant class variable
 	public static int patrolX = 270;
 	public static int enemyX = 0;
+	public static int patrolMissileX;
+	public static int patrolMissileY = 0;
 
 	public static void main(String[] args) {
 		DrawingPanel panel = new DrawingPanel(300, 300);
@@ -23,16 +26,17 @@ public class Project2 {
     
 	public static void startGame(DrawingPanel panel, Graphics g) {
 		//int x = 0;
-		int y = 270;
+		//int y = 270;
 		//int deltaX = 1;
-		int deltaY = -3;
+		//int deltaY = -3;
 		// calls drawPatrol submethod, sends in variables for color 
 		// via parameter.
 		drawPatrol(g, Color.GREEN);
-		for (int time = 0; time <= 1000; time++) {	
-			panel.sleep(50);
+		for (int time = 0; time <= 1000; time++) {
 			moveEnemyShipAndDraw(g);
 			handleKeys(panel, g);
+			movePatrolMissileAndDraw(panel, g);
+			panel.sleep(50);
 		//g.setColor(Color.WHITE); 
 		//g.fillOval(x, y, 30, 30);
 		//g.setColor(Color.RED); 
@@ -88,7 +92,8 @@ public class Project2 {
 				g.setColor(Color.GREEN);
 				g.fillRect(patrolX, PATROL_Y, PATROL_SIZE, PATROL_SIZE);
 			}
-		} else if (panel.getKeyCode() == LEFT_ARROW) {
+		} 
+		if (panel.getKeyCode() == LEFT_ARROW) {
 			g.setColor(Color.WHITE);
 			g.fillRect(patrolX, PATROL_Y, PATROL_SIZE, PATROL_SIZE);
 			patrolX = patrolX - deltaX;
@@ -101,6 +106,22 @@ public class Project2 {
 				g.setColor(Color.GREEN);
 				g.fillRect(patrolX, PATROL_Y, PATROL_SIZE, PATROL_SIZE);
 			}
+		//movePatrolMissileAndDraw(panel, g);
 		}
 	}
+
+
+	public static void movePatrolMissileAndDraw(DrawingPanel panel, Graphics g) {
+		//int deltaY = 5;
+		//patrolMissileX = patrolX;
+		if (panel.getKeyCode() == UP_ARROW) {
+			patrolMissileX = patrolX;
+			patrolMissileY = 239;
+			g.setColor(Color.WHITE);
+			g.fillRect(patrolMissileX, patrolMissileY, 5, PATROL_MISSILE_LENGTH);
+			patrolMissileY = patrolMissileY - 5;
+			g.setColor(Color.BLACK);
+			g.drawRect(patrolMissileX, patrolMissileY, 5, PATROL_MISSILE_LENGTH);
+		}
+	}	
 }
